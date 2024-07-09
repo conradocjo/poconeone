@@ -25,10 +25,10 @@ public class Title {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title_text")
+    private String titleText;
 
     @OneToOne(mappedBy = "title")
-    private Person person;
+    private Message message;
 
 }

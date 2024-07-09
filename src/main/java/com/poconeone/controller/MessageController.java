@@ -1,8 +1,7 @@
 package com.poconeone.controller;
 
-import com.poconeone.entity.Person;
 import com.poconeone.entity.Title;
-import com.poconeone.repository.PersonRepository;
+import com.poconeone.repository.MessageRepository;
 import com.poconeone.repository.TitleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -10,47 +9,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.rmi.server.ExportException;
-
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/message")
+public class MessageController {
 
-    public PersonController(PersonRepository personRepository, TitleRepository titleRepository) {
-        this.personRepository = personRepository;
+    public MessageController(MessageRepository messageRepository, TitleRepository titleRepository) {
+        this.messageRepository = messageRepository;
         this.titleRepository = titleRepository;
     }
 
-    private final PersonRepository personRepository;
+    private final MessageRepository messageRepository;
 
     private final TitleRepository titleRepository;
 
     @PostMapping("/new")
-    public ResponseEntity<String> newPerson() {
+    public ResponseEntity<String> newMessage() {
         var firstTitle = titleRepository.getReferenceById(1L);
         try {
             if (isNotEmpty(firstTitle.getId())) {
-                savePerson(firstTitle, "Conrado");
+                saveMessage(firstTitle, "O Rato roeu a roupa do rei de roma.");
             } else {
-                saveNewPerson();
+                saveGenericMessage();
             }
         } catch (EntityNotFoundException e) {
-            saveNewPerson();
+            saveGenericMessage();
         }
         return ResponseEntity.ok("OK.");
     }
 
-    private void saveNewPerson() {
-        savePerson(Title.builder()
-                .name("Developer")
-                .build(), "Erica");
+    private void saveGenericMessage() {
+        saveMessage(Title.builder()
+                .titleText("Title Example 1")
+                .build(), "Body Example text ....");
     }
 
-    private void savePerson(Title firstTitle, String name) {
-        personRepository.save(Person.builder()
-                .name(name)
+    private void saveMessage(Title firstTitle, String bodyText) {
+        messageRepository.save(com.poconeone.entity.Message.builder()
+                .bodyText(bodyText)
                 .title(firstTitle)
                 .build());
     }

@@ -19,16 +19,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_person")
+@Table(name = "tb_message")
 @Entity
-public class Person {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "body_text")
+    private String bodyText;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "title_id", referencedColumnName = "id")

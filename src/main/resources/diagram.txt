@@ -1,17 +1,17 @@
 
-Table "tb_person" {
+Table "tb_message" {
   "id" bigint(20) [pk, not null, increment]
   "title_id" bigint(20) [default: NULL]
-  "name" varchar(255) [default: NULL]
+  "body_text" varchar(255) [default: NULL]
 
   Indexes {
-    title_id [unique, name: "UK4pu4k224x08fwtywpllxgx0om"]
+    title_id [unique, name: "UK16s88crm6rayx0wj5f3f73o13"]
   }
 }
 
 Table "tb_title" {
   "id" bigint(20) [pk, not null, increment]
-  "name" varchar(255) [default: NULL]
+  "title_text" varchar(255) [default: NULL]
 }
 
-Ref "FKpfpymif3525d5jrikxop7ewja":"tb_title"."id" - "tb_person"."title_id"
+Ref "FKm1ya2apak8rtk1kgboai3qac8":"tb_title"."id" - "tb_message"."title_id"
