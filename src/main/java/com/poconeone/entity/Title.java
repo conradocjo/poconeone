@@ -6,14 +6,19 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
 @Table(name = "tb_title")
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Title {
 
     @Id
@@ -22,5 +27,8 @@ public class Title {
 
     @Column(name = "name")
     private String name;
+
+    @OneToOne(mappedBy = "title")
+    private Person person;
 
 }

@@ -1,0 +1,17 @@
+
+Table "tb_person" {
+  "id" bigint(20) [pk, not null, increment]
+  "title_id" bigint(20) [default: NULL]
+  "name" varchar(255) [default: NULL]
+
+  Indexes {
+    title_id [unique, name: "UK4pu4k224x08fwtywpllxgx0om"]
+  }
+}
+
+Table "tb_title" {
+  "id" bigint(20) [pk, not null, increment]
+  "name" varchar(255) [default: NULL]
+}
+
+Ref "FKpfpymif3525d5jrikxop7ewja":"tb_title"."id" - "tb_person"."title_id"
